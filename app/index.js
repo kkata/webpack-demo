@@ -1,2 +1,2 @@
-var comopnent = require('./component');
+var component = require('./component');
 document.body.appendChild(component());
