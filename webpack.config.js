@@ -4,6 +4,8 @@ const merge = require('webpack-merge');
 const validate = require('webpack-validator');
 const parts = require('./libs/parts');
 
+const pkg = require('./package.json');
+
 const PATHES = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build')
@@ -12,7 +14,8 @@ const PATHES = {
 // 共通設定
 const common = {
   entry: {
-    app: PATHES.app
+    app: PATHES.app,
+    vendor: Object.keys(pkg.dependencies)
   },
   output: {
     path: PATHES.build,
@@ -39,6 +42,10 @@ switch(process.env.npm_lifecycle_event) {
         'process.env.NODE_ENV',
         'production'
       ),
+      parts.extractbundle({
+        name: 'vendor',
+        entries: ['react']
+      }),
       parts.minify(),
       parts.setupCSS(PATHES.app)
     );
