@@ -3,5 +3,5 @@ body {
 }
 
 :local(.redButton) {
-  background: red;
+  background: pink;
 }

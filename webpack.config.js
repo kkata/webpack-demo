@@ -8,12 +8,14 @@ const pkg = require('./package.json');
 
 const PATHES = {
   app: path.join(__dirname, 'app'),
+  style: path.join(__dirname, 'app', 'main.css'),
   build: path.join(__dirname, 'build')
 };
 
 // 共通設定
 const common = {
   entry: {
+    style: PATHES.style,
     app: PATHES.app,
     vendor: Object.keys(pkg.dependencies)
   },
@@ -55,7 +57,7 @@ switch(process.env.npm_lifecycle_event) {
         entries: ['react']
       }),
       parts.minify(),
-      parts.extractCSS(PATHES.app)
+      parts.extractCSS(PATHES.style)
     );
     break;
   default:
@@ -64,7 +66,7 @@ switch(process.env.npm_lifecycle_event) {
       {
         devtool: 'eval-source-map'
       },
-      parts.setupCSS(PATHES.app),
+      parts.setupCSS(PATHES.style),
       parts.devServer({
         // Customize host/port here if needed
         host: process.env.HOST,
