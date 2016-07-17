@@ -8,7 +8,10 @@ const pkg = require('./package.json');
 
 const PATHES = {
   app: path.join(__dirname, 'app'),
-  style: path.join(__dirname, 'app', 'main.css'),
+  style: [
+    path.join(__dirname, 'node_modules', 'purecss'),
+    path.join(__dirname, 'app', 'main.css')
+  ],
   build: path.join(__dirname, 'build')
 };
 
@@ -57,7 +60,8 @@ switch(process.env.npm_lifecycle_event) {
         entries: ['react']
       }),
       parts.minify(),
-      parts.extractCSS(PATHES.style)
+      parts.extractCSS(PATHES.style),
+      parts.purifyCSS([PATHES.app])
     );
     break;
   default:
