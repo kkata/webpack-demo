@@ -24,7 +24,10 @@ const common = {
   },
   output: {
     path: PATHES.build,
-    filename: '[name].js'
+    // Tweak this to match your GitHub project name
+    publicPath: '/webpack-demo/',
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[chunkhash].js'
   },
   plugins: [
     new HTMLWebpackPlugin({
